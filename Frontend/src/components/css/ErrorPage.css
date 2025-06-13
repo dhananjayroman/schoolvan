@@ -1,0 +1,91 @@
+/* components/pages/ErrorPage.css */
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.error-box {
+  text-align: center;
+  padding: 40px;
+  background-color: #ffffffcc;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+}
+
+.error-code {
+  font-size: 6rem;
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.error-description {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.error-button {
+  padding: 12px 25px;
+  background-color: #ff6b6b;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.error-button:hover {
+  background-color: #ff4d4d;
+}
+
+/* Existing CSS remains unchanged, add this below */
+
+.bus-animation {
+  font-size: 3rem;
+  position: absolute;
+  top: 20px;
+  left: -100px;
+  animation: driveBus 8s linear infinite;
+}
+
+@keyframes driveBus {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -100px;
+  }
+}
+
+.bus-img {
+  height: 50px;
+}
+
+.bus-animation {
+  font-size: 3rem;
+  position: absolute;
+  top: 20px;
+  left: 100%;
+  animation: driveBus 8s linear infinite;
+}
+
+@keyframes driveBus {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: -100px;
+  }
+}

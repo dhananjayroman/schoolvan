@@ -1,0 +1,78 @@
+.rules-section {
+  padding: 40px;
+  max-width: 900px;
+  margin: 30px auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.rules-heading {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.rules-list {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.rules-list li {
+  margin: 15px 0;
+  background-color: #f8f8f8;
+  border-left: 5px solid #f39c12;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.rules-list li:hover {
+  background-color: #f1f1f1;
+  transform: translateX(5px);
+}
+
+.back-button {
+  display: block;
+  margin: 30px auto 0;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #e67e22;
+  transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+  .rules-section {
+    padding: 20px;
+  }
+
+  .rules-heading {
+    font-size: 1.8rem;
+  }
+
+  .rules-list {
+    font-size: 1rem;
+  }
+
+  .back-button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+  }
+}
+

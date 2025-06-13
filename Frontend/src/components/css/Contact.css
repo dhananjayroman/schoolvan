@@ -1,0 +1,112 @@
+ /* Contact Section */
+.contact_section {
+  padding: 60px 0;
+  background-color: #f0f4f8;
+  
+
+}
+
+.contact_section .main-heading {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.contact_section .main-heading::after {
+  content: "";
+  width: 60px;
+  height: 4px;
+  background-color: #007bff;
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.contact_section p {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.contact-form form {
+  background-image: url('/images/two-student.jpg');
+  background-size: cover;           /* Makes image cover the entire area */
+  background-position: center;      /* Centers the image */
+  background-repeat: no-repeat;     /* Prevents tiling */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  color: white;                     /* Optional: for better contrast */
+  position: relative;
+}
+
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.8); /* semi-transparent background */
+  color: #000; /* ensure text remains visible */
+}
+
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.btn_on-hover {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn_on-hover:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  .contact-form {
+    padding: 20px;
+  }
+
+  .contact_section .main-heading {
+    font-size: 28px;
+  }
+
+  .contact_section p {
+    font-size: 16px;
+  }
+
+  .btn_on-hover {
+    width: 100%;
+  }
+}
+
+.contact_section_container{
+
+  background-image: url('/images/two-student.jpg');
+}
