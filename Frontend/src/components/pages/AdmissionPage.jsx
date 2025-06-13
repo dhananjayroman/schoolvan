@@ -28,7 +28,7 @@ const AdmissionPage = () => {
     }
 
     try {
-      const response = await fetch("https://gadiwalekaka-backend-1.onrender.com/api/admissions/submit", {
+      const response = await fetch("https://schoolvan.onrender.com/api/admissions/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
