@@ -19,7 +19,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://gadiwalekaka-backend-1.onrender.com/api/auth/login", {
+      const res = await fetch("https://schoolvan.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
