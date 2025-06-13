@@ -20,7 +20,7 @@ const PORT = 5000;
 
 // Allow only your Vercel frontend to access backend
 app.use(cors({
-  origin: "https://schoolvan.onrender.com",
+  origin: "https://schoolvan.vercel.app",
   methods: ["GET", "POST", "DELETE", "PUT"],
   credentials: true
 }));
