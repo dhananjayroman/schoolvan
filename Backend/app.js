@@ -19,11 +19,14 @@ const PORT = 5000;
 // ------------------------------------
 
 // Allow only your Vercel frontend to access backend
+
+
 app.use(cors({
-  origin:["http://localhost:3000", "https://schoolvan.vercel.app"],
-  methods: ["GET", "POST", "DELETE", "PUT"],
+  origin: "https://schoolvan.vercel.app",  // ✅ must match your frontend
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+
 
 app.use(express.json()); // Parse JSON bodies
 
