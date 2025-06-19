@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
+
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
+import axios from "axios"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,32 +18,31 @@ const Login = () => {
   }, [navigate]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await fetch("https://schoolvan.onrender.com/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const res = await axios.post("https://schoolvan.onrender.com/api/auth/login", {
+      email,
+      password
+    });
 
-      console.log("responses",res)
-      const data = await res.json();
-      console.log(data)
+    console.log("Response:", res);
 
-      if (data.ok) {
-        // Login successful
-        localStorage.setItem("isLoggedIn", "true");
-        Swal.fire("Login Successful!", "", "success");
-        navigate("/home");
-      } else {
-        // Login failed
-        Swal.fire("Invalid Credentials", data.error || "Please check email or password", "error");
-      }
-    } catch (error) {
-      Swal.fire("Error", "Something went wrong. Try again later.", "error");
+    const data = res.data;
+    console.log(data);
+
+    if (data.ok) {
+      localStorage.setItem("isLoggedIn", "true");
+      Swal.fire("Login Successful!", "", "success");
+      navigate("/home");
+    } else {
+      Swal.fire("Invalid Credentials", data.error || "Please check email or password", "error");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    Swal.fire("Error", "Something went wrong. Try again later.", "error");
+  }
+};
 
   return (
     <div className="login-wrapper">
@@ -70,6 +71,10 @@ const Login = () => {
 };
 
 export default Login;
+
+
+
+
 
 
 
