@@ -25,9 +25,11 @@ const Login = () => {
         body: JSON.stringify({ email, password }),
       });
 
+      console.log("responses",res)
       const data = await res.json();
+      console.log(data)
 
-      if (res.ok) {
+      if (data.ok) {
         // Login successful
         localStorage.setItem("isLoggedIn", "true");
         Swal.fire("Login Successful!", "", "success");
