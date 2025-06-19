@@ -22,8 +22,10 @@ const PORT = 5000;
 
 
 app.use(cors({
-  origin: "https://schoolvan.vercel.app",  // ✅ must match your frontend
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: [
+    'https://schoolvan-3vv5.vercel.app', // ✅ your actual frontend domain
+       
+  ],
   credentials: true
 }));
 
