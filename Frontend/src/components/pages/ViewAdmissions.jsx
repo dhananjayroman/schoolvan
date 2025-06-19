@@ -6,7 +6,7 @@ const ViewAdmission = () => {
 
   const fetchAdmissions = async () => {
   try {
-    const response = await fetch("https://schoolvan.onrender.com/api/admissions"); // ensure this matches backend
+    const response = await fetch("https://schoolvan-1.onrender.com/api/admissions"); // ensure this matches backend
     const data = await response.json();
     console.log("Fetched admissions:", data); // Debug
     setAdmissions(data); // or data.admissions, depending on your backend
