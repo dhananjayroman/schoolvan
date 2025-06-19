@@ -21,7 +21,7 @@ const Login = () => {
   e.preventDefault();
 
   try {
-    const res = await axios.post("https://schoolvan.onrender.com/api/auth/login", {
+    const res = await axios.post("https://schoolvan-1.onrender.com/api/auth/login", {
       email,
       password
     });
