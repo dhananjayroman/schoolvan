@@ -21,7 +21,7 @@ const Contact = () => {
 
   try {
     // Save form data to backend
-    const res = await fetch('https://schoolvan.onrender.com/api/contact', {
+    const res = await fetch('https://schoolvan-1.onrender.com/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
