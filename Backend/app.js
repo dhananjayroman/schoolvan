@@ -1,54 +1,55 @@
-require('dotenv').config(); // Load environment variables from .env
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// ------------------------------------
-// Imports
-// ------------------------------------
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const path = require('path');
+import contactRoutes from './routes/ContactRoutes.js';
+import admissionRoutes from './routes/AdmissionRoutes.js';
+import authRoutes from './routes/UserRoutes.js';
 
-// ------------------------------------
-// App Initialization
-// ------------------------------------
+// Setup
+dotenv.config();
 const app = express();
 const PORT = 5000;
 
-// ------------------------------------
-// Middleware Setup
-// ------------------------------------
+// CORS + JSON parser
+app.use(cors());
+app.use(express.json());
 
-// Allow only your Vercel frontend to access backend
+// Connect to local MongoDB named "ReactSchoolvan"
 
-
-app.use(cors({
-  origin: [
-    'https://schoolvan-3vv5.vercel.app', // ✅ your actual frontend domain
-       
-  ],
-  credentials: true
-}));
+// mongoose.connect("mongodb://127.0.0.1:27017/ReactSchoolvan")
+//   .then(() => console.log("MongoDB connected successfully")) // Connection success message
+//   .catch((err) => console.error("MongoDB connection error:", err)); // Error message if failed
 
 
-app.use(express.json()); // Parse JSON bodies
 
-// ------------------------------------
-// MongoDB Connection
-// ------------------------------------
+
+//MongoDB atlas connection
 mongoose.connect(process.env.MONGO_URI, {
-  dbName: "ReactSchoolvan"
+  dbName: "ReactSchoolvan",
 })
 .then(() => console.log("✅ MongoDB Connected"))
 .catch((err) => console.error("❌ MongoDB Error:", err));
 
-// ------------------------------------
-// In-memory storage (temporary)
-// ------------------------------------
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+  methods:['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders:['Content-Type','Authorization']
+}));
+
+
+// In-memory admissions (optional)
 let admissions = [];
 
-// ------------------------------------
-// Routes: Temporary In-Memory APIs
-// ------------------------------------
+// Routes
+app.use('/api/contact', contactRoutes);
+app.use('/api/admissions', admissionRoutes);
+app.use('/api/auth', authRoutes);
+
 app.post('/submit-admission', (req, res) => {
   admissions.push({ id: Date.now(), ...req.body });
   res.status(200).json({ message: 'Admission submitted' });
@@ -64,28 +65,10 @@ app.delete('/admissions/:id', (req, res) => {
   res.status(200).json({ message: 'Deleted successfully' });
 });
 
-// ------------------------------------
-// Modular Routes (MongoDB-based)
-// ------------------------------------
-app.use('/api/auth', require('./routes/UserRoutes'));
-app.use('/api/admissions', require('./routes/AdmissionRoutes'));
-app.use('/api/contact', require('./routes/ContactRoutes'));
-
-// ------------------------------------
-// Default Route
-// ------------------------------------
-app.get('/', (req, res) => {
-  res.send('🚀 SchoolVan Backend is running!');
-});
-
-// ------------------------------------
-// Serve Frontend Static Files (for deployment)
-// ------------------------------------
+// Serve frontend
 
 
-// ------------------------------------
-// Start Server
-// ------------------------------------
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
