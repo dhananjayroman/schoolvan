@@ -65,7 +65,10 @@ app.delete('/admissions/:id', (req, res) => {
   res.status(200).json({ message: 'Deleted successfully' });
 });
 
-// Serve frontend
+
+app.get("/", (req, res) => {
+  res.send("🚀 Schoolvan backend is running!");
+});
 
 
 // Start server
