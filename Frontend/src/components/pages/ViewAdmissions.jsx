@@ -6,7 +6,7 @@ const ViewAdmission = () => {
 
   const fetchAdmissions = async () => {
   try {
-    const response = await fetch("https://schoolvan-1.onrender.com/api/admissions"); // ensure this matches backend
+    const response = await fetch("http://localhost:5000/api/admissions"); // ensure this matches backend
     const data = await response.json();
     console.log("Fetched admissions:", data); // Debug
     setAdmissions(data); // or data.admissions, depending on your backend
@@ -18,7 +18,7 @@ const ViewAdmission = () => {
 
   const deleteAdmission = async (id) => {
     try {
-      const res = await fetch(`https://gadiwalekaka-backend-1.onrender.com/api/admissions/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {
