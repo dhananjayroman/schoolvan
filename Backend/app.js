@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 
-import path from "path";
+
 import { fileURLToPath } from "url";
 
 import contactRoutes from './routes/ContactRoutes.js';
