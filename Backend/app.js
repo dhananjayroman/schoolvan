@@ -3,7 +3,9 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
-import { fileURLToPath } from 'url';
+
+import path from "path";
+import { fileURLToPath } from "url";
 
 import contactRoutes from './routes/ContactRoutes.js';
 import admissionRoutes from './routes/AdmissionRoutes.js';
@@ -69,6 +71,19 @@ app.delete('/admissions/:id', (req, res) => {
 app.get("/", (req, res) => {
   res.send("🚀 Schoolvan backend is running!");
 });
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve static files from frontend build
+app.use(express.static(path.join(__dirname, "../Frontend/dist"))); // Adjust if using Vite
+
+// Fallback for React Router
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../Frontend/dist/index.html")); // Adjust as per your structure
+});
+
 
 
 // Start server
