@@ -1,26 +1,20 @@
-const express = require('express');
-const router = express.Router();
-const Contact = require('../models/Contact');
+import express from 'express';
+import Contact from '../models/Contact.js'; // ensure the file extension is added
 
-// @route    POST /api/contact
-// @desc     Save contact form data
+const router = express.Router();
+
+// Example route
 router.post('/', async (req, res) => {
   try {
-    const { name, phone, email, message } = req.body;
-
-    const newContact = new Contact({
-      name,
-      phone,
-      email,
-      message,
-    });
-
+    const { name, email, message } = req.body;
+    const newContact = new Contact({ name, email, message });
     await newContact.save();
-    res.status(201).json({ message: 'Contact saved successfully' });
+    res.status(200).json({ message: 'Message sent successfully' });
   } catch (error) {
-    console.error('Error saving contact:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ error: 'Failed to send message' });
   }
 });
 
-module.exports = router;
+export default router;
+
+

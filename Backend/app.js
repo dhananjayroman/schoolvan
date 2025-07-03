@@ -1,89 +1,71 @@
-require('dotenv').config(); // Load environment variables from .env
+// app.js (ES Module version)
 
-// ------------------------------------
-// Imports
-// ------------------------------------
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
-const path = require('path');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-// ------------------------------------
-// App Initialization
-// ------------------------------------
+import contactRoutes from './routes/ContactRoutes.js';
+import admissionRoutes from './routes/AdmissionRoutes.js';
+import authRoutes from './routes/UserRoutes.js';
+import registerRoutes from './routes/RegistrationRoutes.js';
+import carOwnerRoutes from './routes/CarOwnerRoutes.js';
+
+dotenv.config();
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// ------------------------------------
-// Middleware Setup
-// ------------------------------------
 
-// Allow only your Vercel frontend to access backend
-app.use(cors({
-  origin: "https://gadiwalekaka.onrender.com",
-  methods: ["GET", "POST", "DELETE", "PUT"],
-  credentials: true
+
+import session from "express-session";
+import cookieParser from "cookie-parser";
+
+// Enable JSON and cookies
+app.use(express.json());
+app.use(cookieParser());
+
+
+
+// Configure express-session
+app.use(session({
+  secret: process.env.SESSION_SECRET || "your-secret-key",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  }
 }));
 
-app.use(express.json()); // Parse JSON bodies
 
-// ------------------------------------
+// Middleware
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json());
+
 // MongoDB Connection
-// ------------------------------------
-mongoose.connect(process.env.MONGO_URI, {
-  dbName: "ReactSchoolvan"
-})
-.then(() => console.log("✅ MongoDB Connected"))
-.catch((err) => console.error("❌ MongoDB Error:", err));
+mongoose.connect("mongodb://127.0.0.1:27017/ReactSchoolvan")
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// ------------------------------------
-// In-memory storage (temporary)
-// ------------------------------------
-let admissions = [];
+// Routes
+app.use('/api/contact', contactRoutes);
+app.use('/api/admissions', admissionRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/register', registerRoutes);
 
-// ------------------------------------
-// Routes: Temporary In-Memory APIs
-// ------------------------------------
-app.post('/submit-admission', (req, res) => {
-  admissions.push({ id: Date.now(), ...req.body });
-  res.status(200).json({ message: 'Admission submitted' });
-});
-
-app.get('/admissions', (req, res) => {
-  res.json(admissions);
-});
-
-app.delete('/admissions/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  admissions = admissions.filter(adm => adm.id !== id);
-  res.status(200).json({ message: 'Deleted successfully' });
-});
-
-// ------------------------------------
-// Modular Routes (MongoDB-based)
-// ------------------------------------
-app.use('/api/auth', require('./routes/UserRoutes'));
-app.use('/api/admissions', require('./routes/AdmissionRoutes'));
-app.use('/api/contact', require('./routes/ContactRoutes'));
-
-// ------------------------------------
-// Default Route
-// ------------------------------------
-app.get('/', (req, res) => {
-  res.send('🚀 SchoolVan Backend is running!');
-});
-
-// ------------------------------------
-// Serve Frontend Static Files (for deployment)
-// ------------------------------------
+app.use("/api/carowner", carOwnerRoutes);
 
 
-// ------------------------------------
-// Start Server
-// ------------------------------------
+
+
+
+
+// Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
-
-
-

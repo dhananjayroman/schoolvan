@@ -1,3 +1,4 @@
+// models/Userlogin.js
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -5,4 +6,5 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
 });
 
-module.exports = mongoose.model("UserLogin", userSchema);
+module.exports = mongoose.model("Userlogin", userSchema);
+

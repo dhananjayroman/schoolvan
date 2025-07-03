@@ -1,21 +1,41 @@
-// routes/UserRoutes.js
-const express = require("express");
+import express from "express";
+import bcrypt from "bcrypt";
+import UserRegister from "../models/UserRegister.js"; // Make sure .js is included
+
 const router = express.Router();
-const Userlogin = require("../models/Userlogin");
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const newUser = new Userlogin({ email, password });
-    await newUser.save();
-    res.status(200).json({ message: "Login data saved successfully" });
+    const user = await UserRegister.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ ok: false, error: "Email and Password not has register Plz register first" });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return res.status(401).json({ ok: false, error: "Incorrect password" });
+    }
+
+    // ✅ SET SESSION
+    req.session.studentEmail = email;
+
+    res.status(200).json({ ok: true, message: "Login successful" });
   } catch (err) {
-    res.status(500).json({ error: "Failed to save login data" });
+    console.error("Login error:", err);
+    res.status(500).json({ ok: false, error: "Server error" });
   }
 });
 
-module.exports = router;
+
+export default router;
+
+
+
+
+
 
 
 

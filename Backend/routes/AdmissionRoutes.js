@@ -1,49 +1,72 @@
-const express = require('express');
+import express from "express";
+import Admission from "../models/Admission.js";
+
 const router = express.Router();
-const UserAdmission = require('../models/UserAdmission');
 
-// ✅ POST - Save admission to MongoDB
-router.post('/submit', async (req, res) => {
+// POST: Submit Admission (Student must be logged in)
+router.post("/submit", async (req, res) => {
+  if (!req.session.studentEmail) {
+    return res.status(401).json({ ok: false, error: "Login required" });
+  }
+
+  const { studentName, studentClass, studentAddress, studentContact, schoolName, schoolTime } = req.body;
+
   try {
-    const { studentName, studentClass, studentAddress, studentContact, schoolName, schoolTime } = req.body;
+    const newAdmission = new Admission({
+      studentName,
+      studentClass,
+      studentAddress,
+      studentContact,
+      schoolName,
+      schoolTime,
+     
+    });
 
-    // Basic validation
-    if (!studentName || !studentClass || !studentAddress || !studentContact || !schoolName || !schoolTime) {
-      return res.status(400).json({ error: 'All fields are required' });
-    }
-
-    const newAdmission = new UserAdmission(req.body);
     await newAdmission.save();
-
-    res.status(200).json({ message: 'Admission submitted successfully' });
+    res.status(200).json({ ok: true, message: "Form submitted successfully" });
   } catch (error) {
-    console.error('Error saving admission:', error);
-    res.status(500).json({ error: 'Failed to save admission' });
+    console.error("Submit error:", error);
+    res.status(500).json({ ok: false, error: "Server error" });
   }
 });
 
-// ✅ GET - Fetch all admissions
-router.get('/', async (req, res) => {
+// GET: All admissions (only car owner can view)
+router.get("/", (req, res, next) => {
+  if (!req.session.carOwner) {
+    return res.status(401).json({ error: "Access denied" });
+  }
+  next();
+}, async (req, res) => {
   try {
-    const admissions = await UserAdmission.find().sort({ createdAt: -1 }); // latest first
-    res.json(admissions);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch admissions' });
+    const admissions = await Admission.find();
+    res.status(200).json(admissions);
+  } catch (err) {
+    console.error("Fetch error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-// ✅ DELETE - Delete admission by ID
-router.delete('/:id', async (req, res) => {
+// DELETE: Admission by ID (only car owner)
+router.delete("/:id", (req, res, next) => {
+  if (!req.session.carOwner) {
+    return res.status(401).json({ error: "Access denied" });
+  }
+  next();
+}, async (req, res) => {
   try {
-    const deleted = await UserAdmission.findByIdAndDelete(req.params.id);
-    if (!deleted) {
-      return res.status(404).json({ error: 'Admission not found' });
-    }
-    res.status(200).json({ message: 'Admission deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to delete admission' });
+    const deleted = await Admission.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ error: "Not found" });
+
+    res.json({ message: "Deleted successfully" });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
-module.exports = router;
+export default router;
+
+
+
+
 
