@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from "react";
-import "../css/ViewAdmissions.css"; // Optional: for custom styles
+import { useNavigate } from "react-router-dom";
+import "../css/ViewAdmissions.css";
 
 const ViewAdmission = () => {
   const [admissions, setAdmissions] = useState([]);
+  const navigate = useNavigate();
 
-  const fetchAdmissions = async () => {
-  try {
-    const response = await fetch("http://localhost:5000/api/admissions"); // ensure this matches backend
-    const data = await response.json();
-    console.log("Fetched admissions:", data); // Debug
-    setAdmissions(data); // or data.admissions, depending on your backend
-  } catch (err) {
-    console.error("Error fetching admissions:", err);
-  }
-};
+  useEffect(() => {
+    const fetchAdmissions = async () => {
+      const token = localStorage.getItem("carOwnerToken");
+      if (!token) {
+        alert("Access denied. Only car owners can view this page.");
+        return navigate("/carowner-login");
+      }
 
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions`, {
+          credentials: "include", // sends session cookie
+        });
+
+        if (!res.ok) {
+          throw new Error("Unauthorized or fetch failed");
+        }
+
+        const data = await res.json();
+        setAdmissions(data);
+      } catch (err) {
+        console.error("Error fetching admissions:", err);
+        alert("Session expired or unauthorized. Please log in.");
+        navigate("/carowner-login");
+      }
+    };
+
+    fetchAdmissions();
+  }, [navigate]);
 
   const deleteAdmission = async (id) => {
     try {
-      const res = await fetch(`https://gadiwalekaka-backend-1.onrender.com/api/admissions/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions/${id}`, {
         method: "DELETE",
+        credentials: "include", // ensures session access
       });
-      if (res.ok) {
-       setAdmissions((prev) => prev.filter((a) => a._id !== id));
 
+      if (res.ok) {
+        setAdmissions((prev) => prev.filter((a) => a._id !== id));
+      } else {
+        alert("Failed to delete admission.");
       }
     } catch (error) {
       console.error("Delete failed", error);
     }
   };
-
-  useEffect(() => {
-    fetchAdmissions();
-  }, []);
 
   return (
     <div className="container py-5">
@@ -46,29 +64,30 @@ const ViewAdmission = () => {
             <thead className="table-dark">
               <tr>
                 <th>Name</th>
-                
                 <th>Class</th>
                 <th>Address</th>
                 <th>Contact</th>
                 <th>School</th>
                 <th>Time</th>
-                
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {admissions.map((adm) => (
-                <tr key={adm.id}>
+                <tr key={adm._id}>
                   <td>{adm.studentName}</td>
-                  
                   <td>{adm.studentClass}</td>
                   <td>{adm.studentAddress}</td>
                   <td>{adm.studentContact}</td>
                   <td>{adm.schoolName}</td>
                   <td>{adm.schoolTime}</td>
-                  
                   <td>
-                     <button className="btn btn-danger btn-sm"onClick={() => deleteAdmission(adm._id)}>Delete</button>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => deleteAdmission(adm._id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -81,4 +100,6 @@ const ViewAdmission = () => {
 };
 
 export default ViewAdmission;
+
+
 

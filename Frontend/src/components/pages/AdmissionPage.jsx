@@ -20,40 +20,41 @@ const AdmissionPage = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const isValid = Object.values(formData).every((val) => val.trim() !== "");
-    if (!isValid) {
-      alert("Please fill in all required fields.");
-      return;
-    }
+  e.preventDefault();
+  const isValid = Object.values(formData).every((val) => val.trim() !== "");
+  if (!isValid) {
+    alert("Please fill in all required fields.");
+    return;
+  }
 
-    try {
-      const response = await fetch("https://gadiwalekaka-backend-1.onrender.com/api/admissions/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions/submit`, {
+   method: "POST",
+   headers: { "Content-Type": "application/json" },
+   body: JSON.stringify(formData),
+   credentials: "include", // ✅ Very important!
+});
+
+    ;
+
+    if (response.ok) {
+      alert("Form submitted successfully!");
+      setFormData({
+        studentName: "",
+        studentClass: "",
+        studentAddress: "",
+        studentContact: "",
+        schoolName: "",
+        schoolTime: "",
       });
-
-      if (response.ok) {
-        alert("Form submitted successfully!");
-        setFormData({
-          studentName: "",
-          
-          studentClass: "",
-          studentAddress: "",
-          studentContact: "",
-          schoolName: "",
-          schoolTime: "",
-          
-        });
-      } else {
-        alert("Submission failed.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Error submitting the form.");
+    } else {
+      alert("Submission failed.");
     }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Error submitting the form.");
+  }
+};
 
   return (
     <section className="admission_form_section py-5 bg-light">
@@ -104,9 +105,7 @@ const AdmissionPage = () => {
 
               <button type="submit" className="btn btn-primary mt-3">Submit</button>
 
-              <div className="text-center mt-4">
-                <Link to="/admissions" className="btn btn-success">View All Admissions</Link>
-              </div>
+              
             </form>
           </div>
         </div>

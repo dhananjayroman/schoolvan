@@ -4,10 +4,13 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   useEffect(() => {
     if (localStorage.getItem("isLoggedIn")) {
@@ -19,15 +22,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://gadiwalekaka-backend-1.onrender.com/api/auth/login", {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
+        credentials: "include"
       });
 
-      const data = await res.json();
+      console.log("resposse printed", res)
 
-      if (res.ok) {
+      const data = await res.json();
+      console.log(data)
+
+      if (data.ok) {
         // Login successful
         localStorage.setItem("isLoggedIn", "true");
         Swal.fire("Login Successful!", "", "success");
@@ -54,13 +61,30 @@ const Login = () => {
             required
           />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Enter Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <div className="show-password">
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={() => setShowPassword(prev => !prev)}
+              />
+              <span className="slider"></span>
+            </label>
+            <span>Show Password</span>
+          </div>
+
           <button type="submit">Login</button>
+
+          <div className="text-center mt-3">
+            <p>Don't have an account? <a href="/register" className="text-primary">Register here</a></p>
+          </div>
+
         </form>
       </div>
     </div>

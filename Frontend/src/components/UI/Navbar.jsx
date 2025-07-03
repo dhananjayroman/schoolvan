@@ -1,16 +1,33 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import '../UI/Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [loginRole, setLoginRole] = useState(""); // "student" | "carowner" | ""
+
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const isStudent = localStorage.getItem('isLoggedIn') === 'true';
+    const isCarOwner = localStorage.getItem('carOwnerLoggedIn') === 'true';
+
+    if (isStudent) setLoginRole("student");
+    else if (isCarOwner) setLoginRole("carowner");
+    else setLoginRole("");
+  }, [location]);
 
   const toggleMenu = () => setIsOpen(!isOpen);
-  const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    navigate('/');
-  };
+
+
+
+const handleLogout = () => {
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('carOwnerLoggedIn');
+  navigate('/login');
+};
+
 
   return (
     <nav className="classic-navbar">
@@ -25,14 +42,32 @@ const Navbar = () => {
         </button>
 
         <div className={`navbar-links ${isOpen ? 'show' : ''}`}>
-          
-          <NavLink to="/home" activeClassName="active" onClick={toggleMenu}>Home</NavLink>
-          <NavLink to="/about" activeClassName="active" onClick={toggleMenu}>About</NavLink>
-          <NavLink to="/school" activeClassName="active" onClick={toggleMenu}>Schools</NavLink>
-          <NavLink to="/vehicle" activeClassName="active" onClick={toggleMenu}>Vehicle</NavLink>
-          <NavLink to="/contact" activeClassName="active" onClick={toggleMenu}>Contact</NavLink>
-          <NavLink to="/admissions" activeClassName="active" onClick={toggleMenu}>Admissions</NavLink>
-          <button className="logout-btn" onClick={handleLogout}>Logout</button>
+          {loginRole === "student" && (
+            <>
+              <NavLink to="/home" onClick={toggleMenu}>Home</NavLink>
+              <NavLink to="/about" onClick={toggleMenu}>About</NavLink>
+              <NavLink to="/school" onClick={toggleMenu}>Schools</NavLink>
+              <NavLink to="/vehicle" onClick={toggleMenu}>Vehicle</NavLink>
+              <NavLink to="/contact" onClick={toggleMenu}>Contact</NavLink>
+             
+              <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            </>
+          )}
+
+          {loginRole === "carowner" && (
+            <>
+              <NavLink to="/admissions" onClick={toggleMenu}>Car-Owner</NavLink>
+              <button className="logout-btn" onClick={handleLogout}>Logout</button>
+            </>
+          )}
+
+          {loginRole === "" && (
+            <>
+              <NavLink to="/login" onClick={toggleMenu}>Login</NavLink>
+              <NavLink to="/register" onClick={toggleMenu}>Register</NavLink>
+              <NavLink to="/carowner-login" onClick={toggleMenu}>Car-Owner</NavLink>
+            </>
+          )}
         </div>
       </div>
     </nav>
@@ -40,4 +75,12 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+
+
+
+
+
+
 

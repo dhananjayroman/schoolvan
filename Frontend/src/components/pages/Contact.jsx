@@ -21,7 +21,7 @@ const Contact = () => {
 
   try {
     // Save form data to backend
-    const res = await fetch('https://gadiwalekaka-backend-1.onrender.com/api/contact', {
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/contact`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

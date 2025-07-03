@@ -1,0 +1,41 @@
+.video-container {
+  position: relative;
+  width: 100%;
+  height: 600px; /* Increased for PC full section coverage */
+  overflow: hidden;
+  z-index: 0;
+}
+
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  /* Optional dark overlay for readability */
+  z-index: 0;
+}
+
+/* ✅ Mobile view adjustments */
+@media screen and (max-width: 768px) {
+  .video-container {
+    height: 300px; /* smaller height for mobile */
+  }
+
+  .video-section {
+  margin-top: 100px;    /* space below header */
+  margin-bottom: 100px; /* space above footer */
+}
+}
+
+
