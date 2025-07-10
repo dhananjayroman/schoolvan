@@ -20,14 +20,12 @@ const Navbar = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-
-
-const handleLogout = () => {
-  localStorage.removeItem('isLoggedIn');
-  localStorage.removeItem('carOwnerLoggedIn');
-  navigate('/login');
-};
-
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('carOwnerLoggedIn');
+    setLoginRole("");
+    navigate('/login');
+  };
 
   return (
     <nav className="classic-navbar">
@@ -42,6 +40,7 @@ const handleLogout = () => {
         </button>
 
         <div className={`navbar-links ${isOpen ? 'show' : ''}`}>
+          {/* 👇 Show if STUDENT is logged in */}
           {loginRole === "student" && (
             <>
               <NavLink to="/home" onClick={toggleMenu}>Home</NavLink>
@@ -49,11 +48,11 @@ const handleLogout = () => {
               <NavLink to="/school" onClick={toggleMenu}>Schools</NavLink>
               <NavLink to="/vehicle" onClick={toggleMenu}>Vehicle</NavLink>
               <NavLink to="/contact" onClick={toggleMenu}>Contact</NavLink>
-             
               <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </>
           )}
 
+          {/* 👇 Show if CAR OWNER is logged in */}
           {loginRole === "carowner" && (
             <>
               <NavLink to="/admissions" onClick={toggleMenu}>Car-Owner</NavLink>
@@ -61,6 +60,7 @@ const handleLogout = () => {
             </>
           )}
 
+          {/* 👇 Show if NOT logged in */}
           {loginRole === "" && (
             <>
               <NavLink to="/login" onClick={toggleMenu}>Login</NavLink>

@@ -1,7 +1,5 @@
 import bcrypt from "bcrypt";
 import UserRegister from "../models/UserRegister.js";
-import Userlogin from "../models/Userlogin.js";
-
 
 // Controller function for student login
 export const studentLogin = async (req, res) => {
@@ -22,17 +20,7 @@ export const studentLogin = async (req, res) => {
       return res.status(401).json({ ok: false, error: "Incorrect password" });
     }
 
-    const hashedPassword = await bcrypt.hash(user.password,10);
-     const newUser = new Userlogin({
-      
-      email,
-      password: hashedPassword,
-    });
-
-    await newUser.save();
-   
-
-    // ✅ Set session
+    // ✅ Set session only (no DB insert)
     req.session.studentEmail = email;
 
     res.status(200).json({ ok: true, message: "Login successful" });
@@ -41,3 +29,4 @@ export const studentLogin = async (req, res) => {
     res.status(500).json({ ok: false, error: "Server error" });
   }
 };
+

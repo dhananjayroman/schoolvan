@@ -3,12 +3,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Layout from "./components/Layout/Layout";
 import ErrorPage from "./components/pages/ErrorPage";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 import CarOwnerProtectedRoute from "./components/CarOwnerProtectedRoute";
 
 import Login from "./components/pages/Login";
 import Registration from "./components/pages/Registration";
-
 import CarOwnerLogin from "./components/pages/CarOwnerLogin";
 
 import Home from "./components/pages/Home";
@@ -25,16 +25,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    
     errorElement: <ErrorPage />,
     children: [
       // Public Routes
       { path: "login", element: <Login /> },
       { path: "register", element: <Registration /> },
       { path: "carowner-login", element: <CarOwnerLogin /> },
-     
 
-      // User Protected Routes
+      // Protected Routes (Students)
       {
         path: "home",
         element: (
@@ -84,7 +82,7 @@ const router = createBrowserRouter([
         ),
       },
 
-      // Car Owner Protected Routes
+      // Protected Routes (Car Owners)
       {
         path: "admissions",
         element: (
@@ -102,6 +100,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 
