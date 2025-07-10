@@ -2,11 +2,11 @@
 
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+const loginLogSchema = new mongoose.Schema({
+  email: { type: String, required: true },
+  loginTime: { type: Date, default: Date.now },
 });
 
-const Userlogin=mongoose.model("userLogin",userSchema)
+const LoginLog = mongoose.model("LoginLog", loginLogSchema);
 
-export default Userlogin;
+export default LoginLog;

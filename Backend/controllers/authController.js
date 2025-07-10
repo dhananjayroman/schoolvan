@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import UserRegister from "../models/UserRegister.js";
+import LoginLog from "../models/Userlogin.js";
 
-// Controller function for student login
 export const studentLogin = async (req, res) => {
   const { email, password } = req.body;
 
@@ -20,7 +20,10 @@ export const studentLogin = async (req, res) => {
       return res.status(401).json({ ok: false, error: "Incorrect password" });
     }
 
-    // ✅ Set session only (no DB insert)
+    // ✅ Save login event
+    await LoginLog.create({ email });
+
+    // ✅ Set session
     req.session.studentEmail = email;
 
     res.status(200).json({ ok: true, message: "Login successful" });
@@ -29,4 +32,5 @@ export const studentLogin = async (req, res) => {
     res.status(500).json({ ok: false, error: "Server error" });
   }
 };
+
 
