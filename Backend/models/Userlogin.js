@@ -1,10 +1,12 @@
 // models/Userlogin.js
-const mongoose = require("mongoose");
+
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
-module.exports = mongoose.model("Userlogin", userSchema);
+const Userlogin=mongoose.model("userLogin",userSchema)
 
+export default Userlogin;
