@@ -22,19 +22,4 @@ export const carOwnerLogin = async (req, res) => {
   return res.status(200).json({ ok: true, message: "Login success" });
 };
 
-// ✅ Check Car Owner Session
-export const checkCarOwnerSession = (req, res) => {
-  if (req.session.carOwner) {
-    return res.json({ loggedIn: true, email: req.session.carOwner.email });
-  } else {
-    return res.json({ loggedIn: false });
-  }
-};
 
-// 🔓 Handle Logout
-export const carOwnerLogout = (req, res) => {
-  req.session.destroy(() => {
-    res.clearCookie("connect.sid");
-    res.json({ message: "Logged out successfully" });
-  });
-};

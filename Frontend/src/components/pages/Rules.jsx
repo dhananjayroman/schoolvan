@@ -12,25 +12,26 @@ const Rules = () => {
   return (
     <div>
       <section className="rules-section">
-        <h2 className="rules-heading">विद्यार्थ्यांसाठी व्हॅन नियम</h2>
+        <h2 className="rules-heading">Rules for Students</h2>
         <ul className="rules-list">
-          <li>1. <strong>व्हॅनमध्ये चढताना व उतरताना शिस्त पाळा:</strong> व्हॅनमध्ये चढताना किंवा उतरताना कोणतीही धावपळ करू नका आणि एकमेकांना धक्का देऊ नका.</li>
-          <li>2. <strong>सीट बेल्ट घाला:</strong> प्रत्येक विद्यार्थ्याला सीट बेल्ट घालणे अनिवार्य आहे. कृपया प्रवासादरम्यान seat belt ला सुसंगतपणे बांधून ठेवा.</li>
-          <li>3. <strong>अशा व्यवहाराचे टाळा जो दुसऱ्या विद्यार्थ्यांसाठी त्रासदायक ठरतो:</strong> गोंधळ करणे, जोरात बोलणे किंवा एकमेकांना त्रास देणे पूर्णपणे बंद करा.</li>
-          <li>4. <strong>वाहनात इतर विद्यार्थ्यांसोबत सौम्य व सभ्य वागा:</strong> व्हॅनमध्ये शांत राहून संवाद करा आणि इतर विद्यार्थ्यांना आणि चालकाला आदर दाखवा.</li>
-          <li>5. <strong>कधीही वाहनाच्या पॅनल किंवा खिडक्यांना हात लावू नका:</strong> व्हॅनच्या खिडक्यांना किंवा पॅनलला हात लावणे धोकादायक असू शकते. कृपया ते टाळा.</li>
-          <li>6. <strong>अत्यावश्यक गोष्टी सोडून इतर काहीही वाहनात आणू नका:</strong> खूप मोठ्या किंवा धोकादायक वस्तू व्हॅनमध्ये आणणे टाळा.</li>
-          <li>7. <strong>व्हॅनमध्ये खाण्याचे किंवा पिण्याचे पदार्थ घेऊन जाणे टाळा:</strong> खाण्याचे किंवा पिण्याचे पदार्थ, विशेषतः ज्यामुळे गोंधळ होऊ शकतो, त्यांना व्हॅनमध्ये घेऊन जाणे टाळा.</li>
-          <li>8. <strong>शाळेच्या प्रांगणात किंवा जवळपास वाहन चालवताना आवाज कमी करा:</strong> व्हॅनच्या गतीमध्ये आणि आवाजात योग्य नियंत्रण ठेवा, विशेषतः शाळेच्या परिसरात.</li>
-          <li>9. <strong>कधीही व्हॅनमध्ये विणा किंवा इतर इलेक्टॉनिक उपकरणांचा वापर करु नका:</strong> शाळेच्या वाहनात मोबाईल फोन किंवा इतर उपकरणांचा वापर शाळेच्या मार्गदर्शनानुसारच करा.</li>
-          <li>10. <strong>वाहनातील चालक व सहाय्यक शिक्षकांच्या सूचनांचे पालन करा:</strong> शाळेच्या वाहनातील कर्मचारी किंवा चालकाच्या निर्देशांचे पालन करा. ते तुमच्या सुरक्षिततेसाठी आहेत.</li>
-          <li>11. <strong>गाडी थांबण्याच्या ठिकाणी शांतपणे उतरावे:</strong> जेव्हा व्हॅन थांबते, तेव्हा घाई करू नका आणि एका वेळी गाडीतील एकच विद्यार्थी उतरणे सुनिश्चित करा.</li>
-          <li>12. <strong>वाहनाच्या फायर सायकल किंवा आपत्कालीन उपकरणांचा अव्यवस्थित वापर करू नका:</strong> आपत्कालीन उपकरणांचा उपयोग फक्त आपत्कालीन परिस्थितीतच करा.</li>
-          <li>13. <strong>इतर विद्यार्थ्यांच्या सहकार्याने शाळेच्या व्हॅनमध्ये अधिक सुरक्षित आणि आरामदायक प्रवास करा:</strong> एकमेकांना मदत करा आणि व्हॅनमध्ये एकमेकांची काळजी घ्या.</li>
-        </ul>
+  <li>1. <strong>Maintain discipline while boarding and alighting the van:</strong> Do not rush or push others while getting in or out of the van.</li>
+  <li>2. <strong>Wear seat belts:</strong> It is mandatory for every student to wear a seat belt. Please keep it fastened throughout the journey.</li>
+  <li>3. <strong>Avoid behavior that disturbs others:</strong> Do not create noise, shout, or trouble other students in the van.</li>
+  <li>4. <strong>Be polite and respectful to fellow students:</strong> Stay calm, speak respectfully, and show courtesy to other students and the driver.</li>
+  <li>5. <strong>Do not touch the van panels or windows:</strong> It can be dangerous to touch windows or internal panels. Please avoid doing so.</li>
+  <li>6. <strong>Only bring essential items into the van:</strong> Avoid bringing large or hazardous items inside the van.</li>
+  <li>7. <strong>Avoid carrying food or drinks in the van:</strong> Especially avoid messy or spill-prone items inside the van.</li>
+  <li>8. <strong>Minimize noise near the school premises:</strong> Keep the van speed and noise under control, especially around the school area.</li>
+  <li>9. <strong>Do not use mobile or electronic devices in the van:</strong> Use mobile phones or gadgets only according to school guidelines.</li>
+  <li>10. <strong>Follow instructions from the driver or staff:</strong> Always listen to the van driver or school assistant for your safety.</li>
+  <li>11. <strong>Get off the van calmly at the stop:</strong> When the van stops, do not rush. Exit one student at a time.</li>
+  <li>12. <strong>Do not misuse emergency equipment:</strong> Use fire extinguishers or emergency tools only in real emergencies.</li>
+  <li>13. <strong>Cooperate with others for a safe and comfortable journey:</strong> Help each other and take care of fellow passengers in the van.</li>
+</ul>
+
 
         <button className="back-button" onClick={handleBack}>
-          मागे जा
+          Go back
         </button>
       </section>
     </div>

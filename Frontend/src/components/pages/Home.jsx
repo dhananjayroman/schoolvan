@@ -15,11 +15,9 @@ const Home = () => {
               </h3>
               <h1>School Van Service</h1>
               <p>
-                आमचं ध्येय केवळ विद्यार्थ्यांना शाळेत पोहोचवण्याचं नाही – तर
-                ते पूर्णपणे सुरक्षित, वेळेवर, आणि प्रेमळ वातावरणात प्रवास
-                करावं याची खात्री देणं आहे. तुमचं बाळ आमचंही आहे – रोजच्या
-                प्रवासात आम्ही जबाबदारीनं साथ देतो.
-              </p>
+  Our goal is not just to transport students to school – but to ensure they travel in a completely safe, timely, and caring environment. Your child is our responsibility too – we accompany them every day with utmost care and dedication.
+</p>
+
             </div>
 
             {/* Image on right */}

@@ -48,18 +48,18 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-// mongoose.connect("mongodb://127.0.0.1:27017/ReactSchoolvan")
-//   .then(() => console.log("✅ MongoDB connected successfully"))
-//   .catch((err) => console.error("❌ MongoDB connection error:", err));
+mongoose.connect("mongodb://127.0.0.1:27017/ReactSchoolvan")
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
 
   // MongoDB Connection using Atlas
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("✅ Connected to MongoDB Atlas"))
-  .catch((err) => console.error("❌ MongoDB Atlas connection error:", err));
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// })
+//   .then(() => console.log("✅ Connected to MongoDB Atlas"))
+//   .catch((err) => console.error("❌ MongoDB Atlas connection error:", err));
 
 
 
