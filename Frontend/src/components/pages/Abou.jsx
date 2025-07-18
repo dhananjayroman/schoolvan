@@ -1,5 +1,7 @@
 import React from 'react';
 import '../css/About.css'; // Make sure the path matches your file structure
+import { Link } from 'react-router-dom';
+
 
 const About = () => {
   return (
@@ -15,10 +17,11 @@ const About = () => {
           <img src="/images/student-img.jpg" alt="School van with happy kids" className="img-fluid w-100" />
         </div>
         <div className="d-flex justify-content-center mt-5">
-          <a href="/rules" className="call_to-btn">
-            <span>Read More Rules for Students</span>
-            <img src="/images/right-arrow.png" alt="Right Arrow" />
-          </a>
+          <Link to="/rules" className="call_to-btn">
+  <span>Read More Rules for Students</span>
+  <img src="/images/right-arrow.png" alt="Right Arrow" />
+</Link>
+
         </div>
       </div>
     </section>

@@ -76,17 +76,6 @@ app.use('/api/register', registerRoutes);
 app.use("/api/carowner", carOwnerRoutes);
 
 
-import path from "path";
-
-// Serve static files
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "/client/dist"))); // or /client/build if you're using CRA
-
-// Catch-all for React routes
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/dist/index.html")); // adjust path based on your build folder
-});
-
 
 // Root route
 app.get("/", (req, res) => {
