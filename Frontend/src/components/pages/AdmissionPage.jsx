@@ -28,7 +28,7 @@ const AdmissionPage = () => {
   }
 
   try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions/submit`, {
+   const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions/submit`, {
    method: "POST",
    headers: { "Content-Type": "application/json" },
    body: JSON.stringify(formData),

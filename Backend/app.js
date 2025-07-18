@@ -41,24 +41,15 @@ app.use(session({
 // Middleware
 
 
-const allowedOrigins = [
-  "https://gadiwalekaka-com.onrender.com", // ✅ Render frontend domain
-  "http://localhost:5173" // ✅ For local development
-];
+app.use(cors({
+  origin: "https://gadiwalekaka-com.onrender.com", // your frontend domain
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  })
-);
 
+app.use(express.json());
 
 // MongoDB Connection
 // mongoose.connect("mongodb://127.0.0.1:27017/ReactSchoolvan")
@@ -83,6 +74,18 @@ app.use('/api/auth', authRoutes);
 app.use('/api/register', registerRoutes);
 
 app.use("/api/carowner", carOwnerRoutes);
+
+
+import path from "path";
+
+// Serve static files
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/client/dist"))); // or /client/build if you're using CRA
+
+// Catch-all for React routes
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/dist/index.html")); // adjust path based on your build folder
+});
 
 
 // Root route
