@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
 
 
@@ -82,7 +82,7 @@ const Login = () => {
           <button type="submit">Login</button>
 
           <div className="text-center mt-3">
-            <p>Don't have an account? <a href="/register" className="text-primary">Register here</a></p>
+            <p>Don't have an account? <Link to="/register" className="text-primary">Register here</Link></p>
           </div>
 
         </form>

@@ -9,15 +9,23 @@ const ViewAdmission = () => {
   useEffect(() => {
     const fetchAdmissions = async () => {
       const token = localStorage.getItem("carOwnerToken");
+
       if (!token) {
         alert("Access denied. Only car owners can view this page.");
         return navigate("/carowner-login");
       }
 
       try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions`, {
-          credentials: "include", // sends session cookie
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_BACKEND_URL}/api/admissions`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          }
+        );
 
         if (!res.ok) {
           throw new Error("Unauthorized or fetch failed");
@@ -27,8 +35,8 @@ const ViewAdmission = () => {
         setAdmissions(data);
       } catch (err) {
         console.error("Error fetching admissions:", err);
-        alert("Session expired or unauthorized. Please log in.");
-        navigate("/carowner-login");
+        alert("Session expired or unauthorized. Please log in again.");
+        navigate("/admissions");
       }
     };
 
@@ -36,11 +44,19 @@ const ViewAdmission = () => {
   }, [navigate]);
 
   const deleteAdmission = async (id) => {
+    const token = localStorage.getItem("carOwnerToken");
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/admissions/${id}`, {
-        method: "DELETE",
-        credentials: "include", // ensures session access
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admissions/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          credentials: "include",
+        }
+      );
 
       if (res.ok) {
         setAdmissions((prev) => prev.filter((a) => a._id !== id));
@@ -49,6 +65,7 @@ const ViewAdmission = () => {
       }
     } catch (error) {
       console.error("Delete failed", error);
+      alert("Something went wrong while deleting.");
     }
   };
 
@@ -100,6 +117,7 @@ const ViewAdmission = () => {
 };
 
 export default ViewAdmission;
+
 
 
 

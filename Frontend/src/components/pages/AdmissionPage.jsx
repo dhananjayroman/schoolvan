@@ -5,7 +5,6 @@ import '../css/AdmissionPage.css';
 const AdmissionPage = () => {
   const [formData, setFormData] = useState({
     studentName: "",
-    
     studentClass: "",
     studentAddress: "",
     studentContact: "",

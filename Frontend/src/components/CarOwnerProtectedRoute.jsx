@@ -1,12 +1,20 @@
-// CarOwnerProtectedRoute.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
 const CarOwnerProtectedRoute = ({ children }) => {
-  const isLoggedIn = localStorage.getItem('carOwnerLoggedIn') === 'true';
+  const [isAuth, setIsAuth] = useState(null);
 
-  return isLoggedIn ? children : <Navigate to="/carowner-login" />;
+  useEffect(() => {
+    const auth = localStorage.getItem('carOwnerLoggedIn') === 'true';
+    setIsAuth(auth);
+  }, []);
+
+  if (isAuth === null) return null; // or loading spinner
+
+  return isAuth ? children : <Navigate to="/carowner-login" />;
 };
 
 export default CarOwnerProtectedRoute;
+
+
 

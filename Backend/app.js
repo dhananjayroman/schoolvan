@@ -27,31 +27,38 @@ app.use(cookieParser());
 
 
 // Configure express-session
+// ✅ Session config
 app.use(session({
-  secret: process.env.SESSION_SECRET || "your-secret-key",
+  secret: 'some-secure-secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
+    secure: true,        // ✅ Use true if using HTTPS (Vercel/Render)
     httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    sameSite: 'none'     // ✅ Important for cross-site cookies
   }
 }));
 
 
 // Middleware
 
+const allowedOrigins = [
+  "http://localhost:5173", // local frontend
+  "https://gadiwalekaka-com.onrender.com", // deployed frontend (adjust accordingly)
+];
 
 app.use(cors({
-  origin: "https://gadiwalekaka-com.onrender.com", // your frontend domain
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 
+
 app.use(express.json());
 
-// MongoDB Connection
+//MongoDB Connection
 // mongoose.connect("mongodb://127.0.0.1:27017/ReactSchoolvan")
 //   .then(() => console.log("✅ MongoDB connected successfully"))
 //   .catch((err) => console.error("❌ MongoDB connection error:", err));
