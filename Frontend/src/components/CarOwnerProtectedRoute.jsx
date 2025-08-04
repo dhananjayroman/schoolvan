@@ -11,7 +11,7 @@ const CarOwnerProtectedRoute = ({ children }) => {
 
   if (isAuth === null) return null; // or loading spinner
 
-  return isAuth ? children : <Navigate to="/carowner-login" />;
+  return isAuth ? children : <Navigate to="/admissions" />;
 };
 
 export default CarOwnerProtectedRoute;
