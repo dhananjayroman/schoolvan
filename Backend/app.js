@@ -24,6 +24,17 @@ import cookieParser from "cookie-parser";
 app.use(express.json());
 app.use(cookieParser());
 
+import path from 'path';
+const __dirname = path.resolve(); // only for ESModules
+
+// Serve frontend
+app.use(express.static(path.join(__dirname, '/Frontend/dist'))); // or client/build
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '/Frontend/dist/index.html'));
+});
+
+
 
 
 // Configure express-session
