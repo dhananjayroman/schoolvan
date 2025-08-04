@@ -24,34 +24,39 @@ import cookieParser from "cookie-parser";
 app.use(express.json());
 app.use(cookieParser());
 
-
-
-
-
-
 // Configure express-session
 // ✅ Session config
+app.set('trust proxy', 1); // <== IMPORTANT for HTTPS support
+
 app.use(session({
   secret: 'some-secure-secret',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: true,        // ✅ Use true if using HTTPS (Vercel/Render)
-    httpOnly: true,
-    sameSite: 'none'     // ✅ Important for cross-site cookies
+    secure: true,         // Only over HTTPS
+    httpOnly: true,       // Prevent JS access
+    sameSite: 'None',     // For cross-site
+    maxAge: 24 * 60 * 60 * 1000 // Optional: 1 day
   }
 }));
-
 
 // Middleware
 
 const allowedOrigins = [
   "http://localhost:5173", // local frontend
-  "https://gadiwalekaka-com.onrender.com", // deployed frontend (adjust accordingly)
+  "https://gadiwalekaka-com.onrender.com",
+  "https://gadiwalekaka-com.onrender.com" // deployed frontend (adjust accordingly)
 ];
+app.set('trust proxy', 1); // Trust Render/other HTTPS proxies
 
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
