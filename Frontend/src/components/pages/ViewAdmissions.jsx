@@ -12,7 +12,7 @@ const ViewAdmission = () => {
 
       if (!token) {
         alert("Access denied. Only car owners can view this page.");
-        return navigate("/admissions");
+        return navigate("/carowner-login");
       }
 
       try {
