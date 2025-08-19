@@ -33,10 +33,16 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
+
     secure: true,         // Only over HTTPS
     httpOnly: true,       // Prevent JS access
     sameSite: 'None',     // For cross-site
-    maxAge: 24 * 60 * 60 * 1000 // Optional: 1 day
+    maxAge: 24 * 60 * 60 * 1000, // Optional: 1 day
+
+    secure: true,        // ✅ Use true if using HTTPS (Vercel/Render)
+    httpOnly: false,
+    sameSite: 'none'     // ✅ Important for cross-site cookies
+
   }
 }));
 
@@ -45,7 +51,7 @@ app.use(session({
 const allowedOrigins = [
   "http://localhost:5173", // local frontend
   "https://gadiwalekaka-com.onrender.com",
-  "https://gadiwalekaka-com.onrender.com" // deployed frontend (adjust accordingly)
+  
 ];
 app.set('trust proxy', 1); // Trust Render/other HTTPS proxies
 
