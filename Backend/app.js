@@ -20,6 +20,23 @@ const PORT = process.env.PORT || 5000;
 import session from "express-session";
 import cookieParser from "cookie-parser";
 
+import { fileURLToPath } from "url";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
+// Serve frontend
+app.use(express.static(path.join(__dirname, "dist")));
+
+// SPA fallback for React Router
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
+
+
 // Enable JSON and cookies
 app.use(express.json());
 app.use(cookieParser());
