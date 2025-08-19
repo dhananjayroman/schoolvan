@@ -22,11 +22,14 @@ const CarOwnerLogin = () => {
 
       const data = await res.json();
 
-      if (data.ok) {
-        localStorage.setItem('carOwnerLoggedIn', 'true');
-        Swal.fire('Success', 'Logged in as Car Owner', 'success');
-        navigate('/admissions'); // redirect to protected car-owner page
-      } else {
+     if (data.ok) {
+  // store a fake token or backend-generated token
+  localStorage.setItem('carOwnerLoggedIn', 'true');
+  localStorage.setItem('carOwnerToken', data.token || "dummy-token");
+
+  Swal.fire('Success', 'Logged in as Car Owner', 'success');
+  navigate('/admissions');
+} else {
         Swal.fire('Login Failed', data.error || 'Invalid credentials', 'error');
       }
     } catch (error) {

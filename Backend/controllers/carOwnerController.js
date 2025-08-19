@@ -18,8 +18,10 @@ export const carOwnerLogin = async (req, res) => {
     return res.status(401).json({ ok: false, error: "Incorrect password" });
   }
 
-  req.session.carOwner = { email };
-  return res.status(200).json({ ok: true, message: "Login success" });
+    req.session.carOwner = { email };
+  
+  // ✅ Send a token (dummy or JWT later)
+  return res.status(200).json({ ok: true, message: "Login success", token: "dummy-token-123" });
 };
 
 
